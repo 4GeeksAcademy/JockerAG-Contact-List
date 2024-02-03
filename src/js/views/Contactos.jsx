@@ -1,32 +1,44 @@
-import React, {useContext} from "react"
+import React, {useContext, useState } from "react"
 import { Context } from "../store/appContext.js"
+import { useNavigate } from "react-router"
+import { Link } from "react-router-dom";
 
 export const Contactos = () => {
     const {store, actions} = useContext(Context);
+    const navigate = useNavigate();
+
+    const editTask = (item) => {
+        actions.assignUser(item);
+        navigate('/edit-contact')
+    }
+    
+
+   
+    
     
     
     return (
-        <div className="card mb-3" style={{ maxWidth: '540px' }}>
-            <div className="row g-0">
-                <div className="col-md-4">
-                    <img src="..." className="img-fluid rounded-start" alt="..."/>
-                </div>
-                <div className="col-md-8">
-                <div className="card-body">
-                {store.users.length > 0 && (
-            <div key={store.users[0].id} className="text-center">
-                <h5>{store.users[0].full_name}</h5>
-                <p>Email: {store.users[0].email}</p>
-                <p>Dirección: {store.users[0].address}</p>
-                
+        <div className="container-fluid mt-5">
+            <h1 className="text-center fw-bold text-success">Contact list</h1>
+            <div className="row mt-5 d-flex justify-content-center align-items-center text-center">
+                {store.users.map((user) => (
+                    <div key={user.id} className="col-lg-2 mb-2">
+                        <div className="card text-bg-dark " style={{maxWidth: "18rem"}}>
+                            <div className="card-header fs-4 fw-bold">{user.full_name}</div>
+                            <div className="card-body">
+                                <h5 className="card-title">{user.email}</h5>
+                                <p className="card-text">{user.address}</p>
+                                <p className="card-text">{user.phone}</p>
+                            </div>
+                            <div className="interface d-flex gap-2 mb-2 justify-content-between">
+                                <button onClick={() => { editTask(user) }} type="button" className="btn btn-outline-primary btn-sm ms-3"><i className="fa-solid fa-pen"></i></button>
+                                <button onClick={() => actions.deleteUsers(user.id)} type="button" className="btn btn-danger btn-sm me-3"><i className="fa-solid fa-trash  text-light"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
-        )}
-
-                
-                </div>
-                </div>
-            </div>
-      </div>
+        </div>
     )
 }
 
