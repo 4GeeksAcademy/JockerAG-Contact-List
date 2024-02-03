@@ -5,8 +5,8 @@ import ScrollToTop from "./component/ScrollToTop.jsx";
 import { Home } from "./views/home";
 import { AddContact } from "./views/AddContact.jsx";
 import { Contactos } from "./views/Contactos.jsx";
+import { EditContact } from "./views/EditContact.jsx";
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/Footer.jsx";
 
@@ -22,9 +22,10 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar />
 					<Routes>
-						<Route path="/home" element={<Home />} />
+						<Route path="/" element={<Home />} />
 						<Route path="/add-contact" element={<AddContact />} />
 						<Route path="/contact-list" element={<Contactos/>} />
+						<Route path="/edit-contact" element={<EditContact />} />
 						<Route path="*" element={<h1 className="text-center fw-bold"> 404 - Not found!</h1>} />
 					</Routes>
 					<Footer />
